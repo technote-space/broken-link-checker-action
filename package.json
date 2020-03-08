@@ -1,7 +1,7 @@
 {
-  "name": "@technote-space/gh-actions-template",
+  "name": "@technote-space/broken-link-checker-action",
   "version": "0.3.0",
-  "description": "Template for GitHub actions.",
+  "description": "GitHub Actions to check broken link.",
   "author": {
     "name": "Technote",
     "email": "technote.space@gmail.com",
@@ -12,13 +12,13 @@
     "github",
     "github actions"
   ],
-  "homepage": "https://github.com/technote-space/gh-actions-template",
+  "homepage": "https://github.com/technote-space/broken-link-checker-action",
   "repository": {
     "type": "git",
-    "url": "https://github.com/technote-space/gh-actions-template.git"
+    "url": "https://github.com/technote-space/broken-link-checker-action.git"
   },
   "bugs": {
-    "url": "https://github.com/technote-space/gh-actions-template/issues"
+    "url": "https://github.com/technote-space/broken-link-checker-action/issues"
   },
   "files": [
     "lib",
@@ -28,7 +28,9 @@
     "@actions/core": "^1.2.3",
     "@actions/github": "^2.1.1",
     "@technote-space/filter-github-action": "^0.2.5",
-    "@technote-space/github-action-helper": "^1.2.2"
+    "@technote-space/github-action-helper": "^1.2.2",
+    "broken-link-checker": "^0.7.8",
+    "install": "^0.13.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
@@ -52,7 +54,6 @@
     "access": "public"
   },
   "scripts": {
-    "setup": "if [[ $(uname -s) == 'Darwin' ]]; then BASH_ENV=~/.bashrc bash -O expand_aliases bin/setup.sh; else bash bin/setup.sh; fi && if [[ -f __DELETE__ ]]; then rm -rdf bin __DELETE__; fi",
     "build": "tsc",
     "test": "yarn lint && yarn cover",
     "lint": "eslint 'src/**/*.ts' '__tests__/**/*.ts' --cache",
