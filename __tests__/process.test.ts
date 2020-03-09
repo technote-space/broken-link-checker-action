@@ -1,25 +1,175 @@
+/* eslint-disable no-magic-numbers */
 import { resolve } from 'path';
-import { testEnv, spyOnStdout, spyOnExec, testChildProcess, getOctokit, generateContext, execCalledWith, stdoutCalledWith } from '@technote-space/github-action-test-helper';
+import nock from 'nock';
 import { Logger } from '@technote-space/github-action-helper';
+import {
+	testEnv,
+	getOctokit,
+	disableNetConnect,
+	generateContext,
+	spyOnStdout,
+	stdoutCalledWith,
+	getApiFixture,
+	getLogStdout,
+} from '@technote-space/github-action-test-helper';
 import { execute } from '../src/process';
 
-const rootDir = resolve(__dirname, '..');
+jest.mock('../src/utils/checker', () => {
+	return jest.fn().mockImplementation(() => {
+		return {
+			start: (url, options, events): void => {
+				events.link({
+					broken: false,
+					excluded: true,
+					brokenReason: undefined,
+					url: {
+						original: 'http://example.com/excluded',
+						redirected: 'http://example.com/excluded',
+					},
+				});
+				events.junk({
+					excludedReason: 'BLC_ROBOTS',
+					excluded: true,
+					url: {
+						original: 'http://example.com/excluded',
+						redirected: 'http://example.com/excluded',
+					},
+				});
+				events.link({
+					broken: true,
+					excluded: false,
+					brokenReason: 'BLC_INTERNAL',
+					url: {
+						original: 'http://example.com/404',
+						redirected: 'http://example.com/404',
+					},
+				});
+				events.link({
+					broken: false,
+					excluded: false,
+					brokenReason: undefined,
+					url: {
+						original: 'http://example.com/ok1',
+						redirected: 'http://example.com/redirect',
+					},
+				});
+				events.junk({
+					excludedReason: 'BLC_SAMEPAGE',
+					excluded: true,
+					url: {
+						original: 'http://example.com/excluded',
+						redirected: 'http://example.com/excluded',
+					},
+				});
+				events.link({
+					broken: true,
+					excluded: false,
+					brokenReason: 'BLC_HTML',
+					url: {
+						original: 'http://example.com/400',
+						redirected: 'http://example.com/400',
+					},
+				});
+				events.link({
+					broken: false,
+					excluded: false,
+					brokenReason: undefined,
+					url: {
+						original: 'http://example.com/ok2',
+						redirected: 'http://example.com/ok2',
+					},
+				});
+				events.link({
+					broken: true,
+					excluded: false,
+					brokenReason: 'BLC_INVALID',
+					url: {
+						original: 'http://example.com/500',
+						redirected: 'http://example.com/500',
+					},
+				});
+				events.link({
+					broken: false,
+					excluded: false,
+					brokenReason: undefined,
+					url: {
+						original: 'http://example.com/ok3',
+						redirected: 'http://example.com/ok3',
+					},
+				});
+				events.end();
+			},
+		};
+	});
+});
+
+const rootDir     = resolve(__dirname, '..');
+const fixturesDir = resolve(__dirname, 'fixtures');
+
+beforeEach(() => {
+	Logger.resetForTesting();
+});
 
 describe('execute', () => {
 	testEnv(rootDir);
-	testChildProcess();
+	disableNetConnect(nock);
 
-	it('should execute', async() => {
-		const mockExec   = spyOnExec();
+	it('should run', async() => {
+		process.env.INPUT_GITHUB_TOKEN = 'token';
+		process.env.INPUT_TARGET       = 'https://example.com/test';
+
 		const mockStdout = spyOnStdout();
 
-		await execute(new Logger(), getOctokit(), generateContext({}));
+		nock('https://api.github.com')
+			.persist()
+			.get('/repos/hello/world/issues')
+			.reply(200, () => getApiFixture(fixturesDir, 'issues.get'))
+			.post('/repos/hello/world/issues')
+			.reply(201, () => getApiFixture(fixturesDir, 'issues.create'))
+			.patch('/repos/hello/world/issues/1347')
+			.reply(200);
 
-		execCalledWith(mockExec, ['ls -lat']);
+		await execute(new Logger(), getOctokit(), generateContext({owner: 'hello', repo: 'world', sha: '1234'}));
+
 		stdoutCalledWith(mockStdout, [
-			'{\n\t"action": ""\n}',
-			'[command]ls -lat',
-			'  >> stdout',
+			'::group::Checking...',
+			'=========================', '> url:',
+			'"https://example.com/test"',
+			'> options:',
+			'{}',
+			'=========================',
+			'',
+			'> skipped: http://example.com/excluded',
+			'> Robots Exclusion',
+			'',
+			'::warning::broken: http://example.com/404',
+			'> Internal URL Exclusion',
+			'',
+			'> skipped: http://example.com/excluded',
+			'> Same-page URL Exclusion',
+			'',
+			'::warning::broken: http://example.com/400',
+			'> HTML Exclusion',
+			'',
+			'::warning::broken: http://example.com/500',
+			'> Invalid URL',
+			'',
+			'::endgroup::',
+			'::group::Get issues...',
+			'> count: 3',
+			'::endgroup::',
+			'::group::Creating...',
+			getLogStdout([
+				'https://github.com/octocat/Hello-World/issues/1347',
+				'https://github.com/octocat/Hello-World/issues/1347',
+			]),
+			'::endgroup::',
+			'::group::Closing...',
+			getLogStdout([
+				'http://example.com/ok2',
+				'http://example.com/ok3',
+			]),
+			'::endgroup::',
 		]);
 	});
 });
