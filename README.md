@@ -5,6 +5,8 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/broken-link-checker-action/badge)](https://www.codefactor.io/repository/github/technote-space/broken-link-checker-action)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/broken-link-checker-action/blob/master/LICENSE)
 
+*Read this in other languages: [English](README.md), [日本語](README.ja.md).*
+
 GitHub Actions to check broken links and create issues.
 
 ## Table of Contents
@@ -15,6 +17,7 @@ GitHub Actions to check broken links and create issues.
 <summary>Details</summary>
 
 - [Usage](#usage)
+- [Screenshot](#screenshot)
 - [Options](#options)
 - [Author](#author)
 
@@ -42,6 +45,9 @@ jobs:
       - name: Broken Link Check
         uses: technote-space/broken-link-checker-action@v1
 ```
+
+## Screenshot
+![issue](https://raw.githubusercontent.com/technote-space/broken-link-checker-action/images/issue.png)
 
 ## Options
 | name | description | default | required | e.g. |

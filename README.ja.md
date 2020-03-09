@@ -5,6 +5,8 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/broken-link-checker-action/badge)](https://www.codefactor.io/repository/github/technote-space/broken-link-checker-action)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/broken-link-checker-action/blob/master/LICENSE)
 
+*Read this in other languages: [English](README.md), [日本語](README.ja.md).*
+
 リンク切れを検知して Issue を作成する `GitHub Actions` です。
 
 ## Table of Contents
@@ -14,14 +16,15 @@
 <details>
 <summary>Details</summary>
 
-- [Usage](#usage)
-- [Options](#options)
+- [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
+- [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
+- [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
 - [Author](#author)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Usage
+## 使用方法
 e.g. `.github/workflows/broken-link-check.yml`
 
 ```yaml
@@ -43,7 +46,10 @@ jobs:
         uses: technote-space/broken-link-checker-action@v1
 ```
 
-## Options
+## スクリーンショット
+![issue](https://raw.githubusercontent.com/technote-space/broken-link-checker-action/images/issue.png)
+
+## オプション
 | name | description | default | required | e.g. |
 |:---:|:---|:---:|:---:|:---:|
 | TARGET | Target link | `${{github.event.repository.html_url}}` | true | `https://example.com` |
