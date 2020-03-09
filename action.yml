@@ -1,4 +1,3 @@
-# https://help.github.com/ja/articles/metadata-syntax-for-github-actions
 name: Broken Link Checker Action
 
 description: GitHub Actions to check broken link.
@@ -10,18 +9,70 @@ inputs:
     description: Secret GitHub API token to use for making API requests.
     default: ${{ github.token }}
     required: true
+  TARGET:
+    description: Target link
+    required: true
+  RECURSIVE:
+    description: Recursive?
+    required: false
+  TITLE:
+    description: Issue title
+    required: true
+    default: Broken link found (${URL})
+  BODY:
+    description: Issue body
+    required: true
+    default: |
+      ## Broken link found
 
-#outputs:
-#  result:
-#    description: action result
+      Broken Link Checker found a broken link on ${TARGET}
+
+        `${URL}`
+
+        [View Results](https://github.com/${OWNER}/${REPO}/commit/${SHA}/checks)
+
+  LABELS:
+    description: Labels
+    required: false
+  ASSIGNEES:
+    description: Assignees
+    required: false
+
+  ACCEPTED_SCHEMES:
+    description: Accepted schemes
+    required: false
+  EXCLUDED_KEYWORDS:
+    description: Excluded keyhwords
+    required: false
+  EXCLUDED_SCHEMES:
+    description: Excluded schemes
+    required: false
+  INCLUDED_KEYWORDS:
+    description: Included keywords
+    required: false
+  EXCLUDE_EXTERNAL_LINKS:
+    description: Exclude external links?
+    required: false
+  EXCLUDE_INTERNAL_LINKS:
+    description: Exclude internal links?
+    required: false
+  EXCLUDE_LINKS_TO_SAME_PAGE:
+    description: Exclude links to same page?
+    required: false
+  HONOR_ROBOT_EXCLUSIONS:
+    description: Honor robot exclusions?
+    required: false
+  FILTER_LEVEL:
+    description: Filter level
+    required: false
+  USER_AGENT:
+    description: User agent
+    required: false
 
 branding:
-  # https://feathericons.com/
-  icon: 'package'
+  icon: 'link'
   color: 'orange'
 
 runs:
   using: node12
   main: lib/main.js
-#  post: lib/post.js
-#  post-if: 'success()'

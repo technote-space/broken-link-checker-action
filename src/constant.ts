@@ -1,6 +1,1 @@
-export const TARGET_EVENTS = {
-	'pull_request': [
-		'opened',
-		'synchronize',
-	],
-};
+export const INTERVAL_MS = 500;
