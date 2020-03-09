@@ -17,6 +17,7 @@ GitHub Actions to check broken links and create issues.
 <summary>Details</summary>
 
 - [Usage](#usage)
+- [Screenshot](#screenshot)
 - [Options](#options)
 - [Author](#author)
 
