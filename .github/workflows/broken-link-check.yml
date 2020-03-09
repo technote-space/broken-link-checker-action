@@ -15,3 +15,7 @@ jobs:
           ref: gh-actions
       - name: Broken Link Check
         uses: ./
+        with:
+          LABELS: |
+            broken link
+            test
