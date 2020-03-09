@@ -86,9 +86,10 @@ describe('getIssueBody', () => {
 
 Broken Link Checker found a broken link on http://example.com/test
 
-  \`http://original\`
+  Target: \`http://original\`
+  > reason
 
-  [View Results](https://github.com/hello/world/commit/1234/checks)`);
+  [View Actions Results](https://github.com/hello/world/commit/1234/checks)`);
 	});
 });
 
