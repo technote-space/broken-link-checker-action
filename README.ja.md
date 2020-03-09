@@ -5,6 +5,8 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/broken-link-checker-action/badge)](https://www.codefactor.io/repository/github/technote-space/broken-link-checker-action)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/broken-link-checker-action/blob/master/LICENSE)
 
+*Read this in other languages: [English](README.md), [日本語](README.ja.md).*
+
 リンク切れを検知して Issue を作成する `GitHub Actions` です。
 
 ## Table of Contents
