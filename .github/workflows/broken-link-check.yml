@@ -15,6 +15,3 @@ jobs:
           ref: gh-actions
       - name: Broken Link Check
         uses: ./
-        with:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          TARGET: https://technote-space.github.io/release-github-actions/
