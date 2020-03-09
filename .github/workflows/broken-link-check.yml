@@ -1,0 +1,20 @@
+on:
+  schedule:
+    - cron: 0 0 1 * *
+  repository_dispatch:
+    types: [check-link]
+
+name: Broken Link Check
+jobs:
+  check:
+    name: Broken Link Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: gh-actions
+      - name: Broken Link Check
+        uses: ./
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          TARGET: https://technote-space.github.io/release-github-actions/
