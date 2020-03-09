@@ -46,7 +46,7 @@ jobs:
 ## Options
 | name | description | default | required | e.g. |
 |:---:|:---|:---:|:---:|:---:|
-| TARGET | Target link | `${{ github.event.repository.html_url }}` | true | `https://example.com` |
+| TARGET | Target link | `${{github.event.repository.html_url}}` | true | `https://example.com` |
 | RECURSIVE | Recursive? | | | `true` |
 | TITLE | Issue title | `Broken link found (${URL})` | true | `${URL} is broken` |
 | BODY | Issue body | see [action.yml](action.yml) | true | |
