@@ -1,6 +1,6 @@
 name: Broken Link Checker Action
 
-description: GitHub Actions to check broken link.
+description: GitHub Actions to check broken links and create issues.
 
 author: technote-space
 

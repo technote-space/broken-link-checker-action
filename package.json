@@ -1,7 +1,7 @@
 {
   "name": "@technote-space/broken-link-checker-action",
   "version": "0.3.0",
-  "description": "GitHub Actions to check broken link.",
+  "description": "GitHub Actions to check broken links and create issues.",
   "author": {
     "name": "Technote",
     "email": "technote.space@gmail.com",

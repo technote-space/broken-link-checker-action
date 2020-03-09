@@ -5,7 +5,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/broken-link-checker-action/badge)](https://www.codefactor.io/repository/github/technote-space/broken-link-checker-action)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/broken-link-checker-action/blob/master/LICENSE)
 
-GitHub Actions to check broken link.
+GitHub Actions to check broken links and create issues.
 
 ## Table of Contents
 
