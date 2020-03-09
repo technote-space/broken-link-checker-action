@@ -28,9 +28,10 @@ inputs:
 
       Broken Link Checker found a broken link on ${TARGET}
 
-        `${URL}`
+        Target: `${URL}`
+        > ${REASON}
 
-        [View Results](https://github.com/${OWNER}/${REPO}/commit/${SHA}/checks)
+        [View Actions Results](https://github.com/${OWNER}/${REPO}/commit/${SHA}/checks)
 
   LABELS:
     description: Labels
