@@ -14,9 +14,8 @@
 <details>
 <summary>Details</summary>
 
-- [Setup](#setup)
-  - [yarn](#yarn)
-  - [npm](#npm)
+- [Usage](#usage)
+- [Options](#options)
 - [Author](#author)
 
 </details>
