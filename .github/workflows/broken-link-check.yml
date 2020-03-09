@@ -16,7 +16,7 @@ jobs:
       - name: Broken Link Check
         uses: ./
         with:
-          TARGET: https://github.com/sdras/awesome-actions
+          TARGET: https://github.com/technote-space/test-github-actions
           LABELS: |
             broken link
             test
