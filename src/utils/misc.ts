@@ -23,21 +23,38 @@ export const getIssueLabels      = (): Array<string> => Utils.getArrayInput('LAB
 export const getIssueAssignees   = (): Array<string> => Utils.getArrayInput('ASSIGNEES');
 export const isRecursive         = (): boolean => Utils.getBoolValue(getInput('RECURSIVE'));
 
-export const filterInput    = <T>(name: string, getValue: () => T): T | undefined => `INPUT_${name.replace(/ /g, '_').toUpperCase()}` in process.env ? getValue() : undefined;
+export const filterInput    = <T>(name: string, getValue: () => T): T | undefined => {
+	const key = `INPUT_${name.replace(/ /g, '_').toUpperCase()}`;
+	if (!(key in process.env)) {
+		return undefined;
+	}
+	if ('' === process.env[key]) {
+		return undefined;
+	}
+	return getValue();
+};
 export const getArrayValue  = (name: string): Array<string> | undefined => filterInput(name, () => Utils.getArrayInput(name));
 export const getNumberValue = (name: string): number | undefined => filterInput(name, () => /^\d+$/.test(getInput(name)) ? Number(getInput(name)) : undefined);
 export const getBoolValue   = (name: string): boolean | undefined => filterInput(name, () => Utils.getBoolValue(getInput(name)));
 export const getStringValue = (name: string): string | undefined => filterInput(name, () => getInput(name));
 
-export const getHtmlCheckerOptions = (): HtmlCheckerOptions => ({
-	acceptedSchemes: getArrayValue('ACCEPTED_SCHEMES'),
-	excludedKeywords: getArrayValue('EXCLUDED_KEYWORDS'),
-	excludedSchemes: getArrayValue('EXCLUDED_SCHEMES'),
-	includedKeywords: getArrayValue('INCLUDED_KEYWORDS'),
-	excludeExternalLinks: getBoolValue('EXCLUDE_EXTERNAL_LINKS'),
-	excludeInternalLinks: getBoolValue('EXCLUDE_INTERNAL_LINKS'),
-	excludeLinksToSamePage: getBoolValue('EXCLUDE_LINKS_TO_SAME_PAGE'),
-	honorRobotExclusions: getBoolValue('HONOR_ROBOT_EXCLUSIONS'),
-	filterLevel: getNumberValue('FILTER_LEVEL'),
-	userAgent: getStringValue('USER_AGENT'),
-});
+export const getHtmlCheckerOptions = (): HtmlCheckerOptions => {
+	const options = {
+		acceptedSchemes: getArrayValue('ACCEPTED_SCHEMES'),
+		excludedKeywords: getArrayValue('EXCLUDED_KEYWORDS'),
+		excludedSchemes: getArrayValue('EXCLUDED_SCHEMES'),
+		includedKeywords: getArrayValue('INCLUDED_KEYWORDS'),
+		excludeExternalLinks: getBoolValue('EXCLUDE_EXTERNAL_LINKS'),
+		excludeInternalLinks: getBoolValue('EXCLUDE_INTERNAL_LINKS'),
+		excludeLinksToSamePage: getBoolValue('EXCLUDE_LINKS_TO_SAME_PAGE'),
+		honorRobotExclusions: getBoolValue('HONOR_ROBOT_EXCLUSIONS'),
+		filterLevel: getNumberValue('FILTER_LEVEL'),
+		userAgent: getStringValue('USER_AGENT'),
+	};
+	Object.keys(options).forEach(key => {
+		if (options[key] === undefined) {
+			delete options[key];
+		}
+	});
+	return options;
+};

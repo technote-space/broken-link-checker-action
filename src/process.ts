@@ -12,6 +12,7 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 
 	logger.startProcess('Get issues...');
 	const issues = await getIssues(octokit, context);
+	logger.info('count: %d', issues.length);
 
 	logger.startProcess('Creating...');
 	console.log(

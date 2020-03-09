@@ -8,17 +8,57 @@ jest.mock('../../src/utils/checker', () => {
 		return {
 			start: (url, options, events): void => {
 				events.link({
-					isBroken: false,
-					wasExcluded: true,
+					broken: false,
+					excluded: true,
 					brokenReason: undefined,
-					originalURL: 'http://example.com/excluded',
-					redirectedURL: 'http://example.com/excluded',
+					url: {
+						original: 'http://example.com/excluded',
+						redirected: 'http://example.com/excluded',
+					},
 				});
-				events.junk({excludedReason: 'junk test1'});
-				events.link({isBroken: true, wasExcluded: false, brokenReason: 'broken test1', originalURL: 'http://example.com/404', redirectedURL: 'http://example.com/404'});
-				events.link({isBroken: false, wasExcluded: false, brokenReason: undefined, originalURL: 'http://example.com/ok', redirectedURL: 'http://example.com/redirect'});
-				events.junk({excludedReason: 'junk test2'});
-				events.link({isBroken: true, wasExcluded: false, brokenReason: 'broken test2', originalURL: 'http://example.com/400', redirectedURL: 'http://example.com/400'});
+				events.junk({
+					excluded: true,
+					excludedReason: 'BLC_ROBOTS',
+					url: {
+						original: 'http://example.com/skipped1',
+						redirected: 'http://example.com/skipped1',
+					},
+				});
+				events.link({
+					broken: true,
+					excluded: false,
+					brokenReason: 'BLC_INVALID',
+					url: {
+						original: 'http://example.com/404',
+						redirected: 'http://example.com/404',
+					},
+				});
+				events.link({
+					broken: false,
+					excluded: false,
+					brokenReason: undefined,
+					url: {
+						original: 'http://example.com/ok',
+						redirected: 'http://example.com/redirect',
+					},
+				});
+				events.junk({
+					excluded: true,
+					excludedReason: 'BLC_SAMEPAGE',
+					url: {
+						original: 'http://example.com/skipped2',
+						redirected: 'http://example.com/skipped2',
+					},
+				});
+				events.link({
+					broken: true,
+					excluded: false,
+					brokenReason: 'BLC_KEYWORD',
+					url: {
+						original: 'http://example.com/400',
+						redirected: 'http://example.com/400',
+					},
+				});
 				events.end();
 			},
 		};
@@ -36,14 +76,26 @@ describe('checkLinks', () => {
 		const {brokenLinks, notBrokenLinks} = await checkLinks('https://example.com/test', false, {}, new Logger());
 
 		stdoutCalledWith(mockStdout, [
-			'> skipped: junk test1',
+			'=========================', '> url:',
+			'"https://example.com/test"',
+			'> options:',
+			'{}',
+			'=========================',
+			'',
+			'> skipped: http://example.com/skipped1',
+			'> Robots Exclusion',
+			'',
 			'::warning::broken: http://example.com/404',
-			'> broken test1',
-			'> skipped: junk test2',
+			'> Invalid URL',
+			'',
+			'> skipped: http://example.com/skipped2',
+			'> Same-page URL Exclusion',
+			'',
 			'::warning::broken: http://example.com/400',
-			'> broken test2',
+			'> Keyword Exclusion',
+			'',
 		]);
 		expect(brokenLinks).toHaveLength(2);
-		expect(notBrokenLinks).toHaveLength(1);
+		expect(notBrokenLinks).toHaveLength(3);
 	});
 });

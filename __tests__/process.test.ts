@@ -19,20 +19,84 @@ jest.mock('../src/utils/checker', () => {
 		return {
 			start: (url, options, events): void => {
 				events.link({
-					isBroken: false,
-					wasExcluded: true,
+					broken: false,
+					excluded: true,
 					brokenReason: undefined,
-					originalURL: 'http://example.com/excluded',
-					redirectedURL: 'http://example.com/excluded',
+					url: {
+						original: 'http://example.com/excluded',
+						redirected: 'http://example.com/excluded',
+					},
 				});
-				events.junk({excludedReason: 'junk test1'});
-				events.link({isBroken: true, wasExcluded: false, brokenReason: 'broken test1', originalURL: 'http://example.com/404', redirectedURL: 'http://example.com/404'});
-				events.link({isBroken: false, wasExcluded: false, brokenReason: undefined, originalURL: 'http://example.com/ok1', redirectedURL: 'http://example.com/redirect'});
-				events.junk({excludedReason: 'junk test2'});
-				events.link({isBroken: true, wasExcluded: false, brokenReason: 'broken test2', originalURL: 'http://example.com/400', redirectedURL: 'http://example.com/400'});
-				events.link({isBroken: false, wasExcluded: false, brokenReason: undefined, originalURL: 'http://example.com/ok2', redirectedURL: 'http://example.com/ok2'});
-				events.link({isBroken: true, wasExcluded: false, brokenReason: 'broken test3', originalURL: 'http://example.com/500', redirectedURL: 'http://example.com/500'});
-				events.link({isBroken: false, wasExcluded: false, brokenReason: undefined, originalURL: 'http://example.com/ok3', redirectedURL: 'http://example.com/ok3'});
+				events.junk({
+					excludedReason: 'BLC_ROBOTS',
+					excluded: true,
+					url: {
+						original: 'http://example.com/excluded',
+						redirected: 'http://example.com/excluded',
+					},
+				});
+				events.link({
+					broken: true,
+					excluded: false,
+					brokenReason: 'BLC_INTERNAL',
+					url: {
+						original: 'http://example.com/404',
+						redirected: 'http://example.com/404',
+					},
+				});
+				events.link({
+					broken: false,
+					excluded: false,
+					brokenReason: undefined,
+					url: {
+						original: 'http://example.com/ok1',
+						redirected: 'http://example.com/redirect',
+					},
+				});
+				events.junk({
+					excludedReason: 'BLC_SAMEPAGE',
+					excluded: true,
+					url: {
+						original: 'http://example.com/excluded',
+						redirected: 'http://example.com/excluded',
+					},
+				});
+				events.link({
+					broken: true,
+					excluded: false,
+					brokenReason: 'BLC_HTML',
+					url: {
+						original: 'http://example.com/400',
+						redirected: 'http://example.com/400',
+					},
+				});
+				events.link({
+					broken: false,
+					excluded: false,
+					brokenReason: undefined,
+					url: {
+						original: 'http://example.com/ok2',
+						redirected: 'http://example.com/ok2',
+					},
+				});
+				events.link({
+					broken: true,
+					excluded: false,
+					brokenReason: 'BLC_INVALID',
+					url: {
+						original: 'http://example.com/500',
+						redirected: 'http://example.com/500',
+					},
+				});
+				events.link({
+					broken: false,
+					excluded: false,
+					brokenReason: undefined,
+					url: {
+						original: 'http://example.com/ok3',
+						redirected: 'http://example.com/ok3',
+					},
+				});
 				events.end();
 			},
 		};
@@ -69,16 +133,30 @@ describe('execute', () => {
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Checking...',
-			'> skipped: junk test1',
+			'=========================', '> url:',
+			'"https://example.com/test"',
+			'> options:',
+			'{}',
+			'=========================',
+			'',
+			'> skipped: http://example.com/excluded',
+			'> Robots Exclusion',
+			'',
 			'::warning::broken: http://example.com/404',
-			'> broken test1',
-			'> skipped: junk test2',
+			'> Internal URL Exclusion',
+			'',
+			'> skipped: http://example.com/excluded',
+			'> Same-page URL Exclusion',
+			'',
 			'::warning::broken: http://example.com/400',
-			'> broken test2',
+			'> HTML Exclusion',
+			'',
 			'::warning::broken: http://example.com/500',
-			'> broken test3',
+			'> Invalid URL',
+			'',
 			'::endgroup::',
 			'::group::Get issues...',
+			'> count: 3',
 			'::endgroup::',
 			'::group::Creating...',
 			getLogStdout([

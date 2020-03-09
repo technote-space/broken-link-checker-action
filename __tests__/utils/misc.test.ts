@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { resolve } from 'path';
 import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
-import { getArrayValue, getNumberValue, getBoolValue, getStringValue, getIssueTitle, getIssueBody } from '../../src/utils/misc';
+import { getArrayValue, getNumberValue, getBoolValue, getStringValue, getIssueTitle, getIssueBody, getHtmlCheckerOptions, filterInput } from '../../src/utils/misc';
 
 const rootDir = resolve(__dirname, '../..');
 
@@ -39,10 +39,8 @@ describe('getBoolValue', () => {
 	it('should return boolean', () => {
 		process.env.INPUT_TEST1 = 'true';
 		process.env.INPUT_TEST2 = 'false';
-		process.env.INPUT_TEST3 = '';
 		expect(getBoolValue('test1')).toBe(true);
 		expect(getBoolValue('test2')).toBe(false);
-		expect(getBoolValue('test3')).toBe(false);
 	});
 
 	it('should return undefined', () => {
@@ -91,5 +89,36 @@ Broken Link Checker found a broken link on http://example.com/test
   \`http://original\`
 
   [View Results](https://github.com/hello/world/commit/1234/checks)`);
+	});
+});
+
+describe('getHtmlCheckerOptions', () => {
+	testEnv(rootDir);
+
+	it('should return options', () => {
+		process.env.INPUT_EXCLUDE_EXTERNAL_LINKS = 'true';
+		process.env.INPUT_EXCLUDE_INTERNAL_LINKS = 'false';
+		process.env.INPUT_ACCEPTED_SCHEMES       = 'test1, test2';
+		expect(getHtmlCheckerOptions()).toEqual({
+			'acceptedSchemes': ['test1', 'test2'],
+			'excludeExternalLinks': true,
+			'excludeInternalLinks': false,
+		});
+	});
+});
+
+describe('filterInput', () => {
+	it('should filter input 1', () => {
+		expect(filterInput('test', () => '')).toBeUndefined();
+	});
+
+	it('should filter input 2', () => {
+		process.env.INPUT_TEST = '';
+		expect(filterInput('test', () => '')).toBeUndefined();
+	});
+
+	it('should filter input 3', () => {
+		process.env.INPUT_TEST = '123';
+		expect(filterInput('test', () => '123')).toBe('123');
 	});
 });
