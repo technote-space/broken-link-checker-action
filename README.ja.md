@@ -23,7 +23,7 @@
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Usage
+## 使用方法
 e.g. `.github/workflows/broken-link-check.yml`
 
 ```yaml
@@ -45,7 +45,10 @@ jobs:
         uses: technote-space/broken-link-checker-action@v1
 ```
 
-## Options
+## スクリーンショット
+![issue](https://raw.githubusercontent.com/technote-space/broken-link-checker-action/images/issue.png)
+
+## オプション
 | name | description | default | required | e.g. |
 |:---:|:---|:---:|:---:|:---:|
 | TARGET | Target link | `${{github.event.repository.html_url}}` | true | `https://example.com` |

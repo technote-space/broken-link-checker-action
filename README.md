@@ -45,6 +45,9 @@ jobs:
         uses: technote-space/broken-link-checker-action@v1
 ```
 
+## Screenshot
+![issue](https://raw.githubusercontent.com/technote-space/broken-link-checker-action/images/issue.png)
+
 ## Options
 | name | description | default | required | e.g. |
 |:---:|:---|:---:|:---:|:---:|
