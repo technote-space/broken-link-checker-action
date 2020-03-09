@@ -16,6 +16,7 @@ jobs:
       - name: Broken Link Check
         uses: ./
         with:
+          TARGET: https://github.com/sdras/awesome-actions
           LABELS: |
             broken link
             test
