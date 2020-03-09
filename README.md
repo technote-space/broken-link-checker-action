@@ -14,9 +14,8 @@ GitHub Actions to check broken links and create issues.
 <details>
 <summary>Details</summary>
 
-- [Setup](#setup)
-  - [yarn](#yarn)
-  - [npm](#npm)
+- [Usage](#usage)
+- [Options](#options)
 - [Author](#author)
 
 </details>
