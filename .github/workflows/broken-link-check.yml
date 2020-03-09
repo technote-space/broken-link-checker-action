@@ -20,3 +20,4 @@ jobs:
           LABELS: |
             broken link
             test
+          HONOR_ROBOT_EXCLUSIONS: false
