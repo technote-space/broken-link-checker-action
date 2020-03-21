@@ -25,11 +25,14 @@ export const checkLinks = async(url: string, recursive: boolean, options: HtmlCh
 			if (result.broken) {
 				logger.warn('broken: %s', result.url.original);
 				logger.info(blc[result.brokenReason]);
-				logger.log();
 				brokenLinks.push({originalURL: result.url.original, redirectedURL: result.url.redirected, brokenReason: result.brokenReason});
-			} else if (!result.excluded) {
+			} else if (result.excluded) {
+				logger.info('excluded: %s', result.url.original);
+			} else {
+				logger.info('passed: %s', result.url.original);
 				notBrokenLinks.push(result.url.original);
 			}
+			logger.log();
 		},
 		end: (): void => resolve({brokenLinks, notBrokenLinks}),
 	};

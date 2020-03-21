@@ -23,16 +23,16 @@ jest.mock('../src/utils/checker', () => {
 					excluded: true,
 					brokenReason: undefined,
 					url: {
-						original: 'http://example.com/excluded',
-						redirected: 'http://example.com/excluded',
+						original: 'http://example.com/excluded1',
+						redirected: 'http://example.com/excluded1',
 					},
 				});
 				events.junk({
 					excludedReason: 'BLC_ROBOTS',
 					excluded: true,
 					url: {
-						original: 'http://example.com/excluded',
-						redirected: 'http://example.com/excluded',
+						original: 'http://example.com/excluded2',
+						redirected: 'http://example.com/excluded2',
 					},
 				});
 				events.link({
@@ -57,8 +57,8 @@ jest.mock('../src/utils/checker', () => {
 					excludedReason: 'BLC_SAMEPAGE',
 					excluded: true,
 					url: {
-						original: 'http://example.com/excluded',
-						redirected: 'http://example.com/excluded',
+						original: 'http://example.com/excluded3',
+						redirected: 'http://example.com/excluded3',
 					},
 				});
 				events.link({
@@ -139,20 +139,28 @@ describe('execute', () => {
 			'{}',
 			'=========================',
 			'',
-			'> skipped: http://example.com/excluded',
+			'> excluded: http://example.com/excluded1',
+			'',
+			'> skipped: http://example.com/excluded2',
 			'> Robots Exclusion',
 			'',
 			'::warning::broken: http://example.com/404',
 			'> Internal URL Exclusion',
 			'',
-			'> skipped: http://example.com/excluded',
+			'> passed: http://example.com/ok1',
+			'',
+			'> skipped: http://example.com/excluded3',
 			'> Same-page URL Exclusion',
 			'',
 			'::warning::broken: http://example.com/400',
 			'> HTML Exclusion',
 			'',
+			'> passed: http://example.com/ok2',
+			'',
 			'::warning::broken: http://example.com/500',
 			'> Invalid URL',
+			'',
+			'> passed: http://example.com/ok3',
 			'',
 			'::endgroup::',
 			'::group::Get issues...',
