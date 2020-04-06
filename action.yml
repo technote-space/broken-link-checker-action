@@ -11,7 +11,7 @@ inputs:
     required: true
   TARGET:
     description: Target link
-    default: ${{ github.event.repository.html_url }}
+    default: https://github.com/${{ github.repository }}
     required: true
   RECURSIVE:
     description: Recursive?
