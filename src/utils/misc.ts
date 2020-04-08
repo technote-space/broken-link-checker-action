@@ -50,6 +50,7 @@ export const getHtmlCheckerOptions = (): HtmlCheckerOptions => {
 		honorRobotExclusions: getBoolValue('HONOR_ROBOT_EXCLUSIONS'),
 		filterLevel: getNumberValue('FILTER_LEVEL'),
 		userAgent: getStringValue('USER_AGENT'),
+		rateLimit: getNumberValue('RATE_LIMIT'),
 	};
 	Object.keys(options).forEach(key => {
 		if (options[key] === undefined) {
