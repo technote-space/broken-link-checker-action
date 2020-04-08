@@ -70,6 +70,10 @@ inputs:
   USER_AGENT:
     description: User agent
     required: false
+  RATE_LIMIT:
+    description: Rate limit
+    required: false
+    default: '1000'
 
 branding:
   icon: 'link'

@@ -104,6 +104,7 @@ describe('getHtmlCheckerOptions', () => {
 			'acceptedSchemes': ['test1', 'test2'],
 			'excludeExternalLinks': true,
 			'excludeInternalLinks': false,
+			'rateLimit': 1000,
 		});
 	});
 });
