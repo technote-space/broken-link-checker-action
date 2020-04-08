@@ -136,7 +136,9 @@ describe('execute', () => {
 			'=========================', '> url:',
 			'"https://example.com/test"',
 			'> options:',
-			'{}',
+			getLogStdout({
+				'rateLimit': 1000,
+			}),
 			'=========================',
 			'',
 			'> excluded: http://example.com/excluded1',
