@@ -703,9 +703,9 @@
     universal-user-agent "^4.0.0"
 
 "@octokit/types@^2.0.0", "@octokit/types@^2.0.1":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-2.7.0.tgz#c57b75d993c2f80f4e7ed913a2f11d0502917b21"
-  integrity sha512-XGXXXccfWP+YYXNXtW7xS8b/J/EPDWfBXlMQIZWTZ7EcOA3o8ywhZqWcPb8MvbIcPP14duoIgnXpxXevNisRCQ==
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-2.8.1.tgz#935ba46c3abb745e913b1110b87f1ca75f2a3792"
+  integrity sha512-1fzZcYTvPkrJsS9MX7oTMun447Q/tJo5XOtXQsKqmbTbwQV1f+R58pDmjDbzeFbQ7KzMJaDN7Sq4bCh/WHmgLg==
   dependencies:
     "@types/node" ">= 8"
 
@@ -724,27 +724,27 @@
     type-detect "4.0.8"
 
 "@technote-space/filter-github-action@^0.2.9":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@technote-space/filter-github-action/-/filter-github-action-0.2.9.tgz#1addf54b4de03b4d8850852534c46c712fd770ce"
-  integrity sha512-fQXkNQym2KE8TDFDOQKTIqwxP5o2QyfpNGd9tQgMO9oyZ2wHWEZnkwtDUpCRpEilWCgMnU7TvHDyUj10wod3ZA==
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/@technote-space/filter-github-action/-/filter-github-action-0.2.11.tgz#abe63230ba8458733ebf2f9a6d610b50399a8583"
+  integrity sha512-f0LoJkkr9iM9Hj6Y/bAfa5wPOQrt7AKf9rv6cq7PrweXjEVVH0b1vYQoPg+3ufdS8AnzUeHjLGruZiGk+kiYsg==
   dependencies:
     "@actions/core" "^1.2.3"
     "@actions/github" "^2.1.1"
 
-"@technote-space/github-action-helper@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-2.0.4.tgz#5cf42830003661600b1b1ddba2098af7cab71dd0"
-  integrity sha512-JHw2x3sBwN82c9Lg9cMxSzx0c/zKksFUEXwTURFp4RZdIALlJBU5KcVDACmmLHMUc2UfSmX7izcUty6fHuEq0A==
+"@technote-space/github-action-helper@^2.0.4", "@technote-space/github-action-helper@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-2.0.6.tgz#cdc84ae80b396001502b5580abdb51f20a4ab136"
+  integrity sha512-srL/ehoUVCYUuwlbsHviTJJQQtnTGg+Ymax945Fq6XJ9YvWUEw+PJsmMXFuJYzFB8p1dqFv6AMz7HULWXRwiNg==
   dependencies:
     "@actions/core" "^1.2.3"
     "@actions/github" "^2.1.1"
     shell-escape "^0.2.0"
     sprintf-js "^1.1.2"
 
-"@technote-space/github-action-test-helper@^0.3.5":
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/@technote-space/github-action-test-helper/-/github-action-test-helper-0.3.5.tgz#4ec82f75c5c4879aaa09df45c61abe88e3760737"
-  integrity sha512-9DVfnONRQfelQWy+e2Li6/zWknNitYJFMuwaYHz3WA5fQcj3VO9FQhBaTqruMHM8f6lbycwP+qwuQ8/ZcPiVYA==
+"@technote-space/github-action-test-helper@^0.3.6":
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/@technote-space/github-action-test-helper/-/github-action-test-helper-0.3.6.tgz#7644bcc3f321599d649f5e4ea52dc0429dffe07b"
+  integrity sha512-Hsj5UMeIgU6ATn0fIyCh+ZCDbUBzwWsBRphPgPKDX55g8/O07cREq7YSZgCEN0PfDMKxX0vi9rDpgbZQcxeTwg==
   dependencies:
     "@actions/github" "^2.1.1"
     js-yaml "^3.13.1"
@@ -761,9 +761,9 @@
     js-yaml "^3.13.1"
 
 "@technote-space/release-github-actions@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions/-/release-github-actions-6.0.0.tgz#cec2fc1512533b5fee2444700f246e791f69ff71"
-  integrity sha512-NXiytIAH3EhXxFUkMZd0F9hjpMFlQ6ocKJ0CL4ULXwmFPhnl0W/axRE308STkPfjz3nOalDCPtNqAZRZXoeanQ==
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions/-/release-github-actions-6.0.1.tgz#e6ccbb5e9b40efcc523ca572eccf45ecd573bbcd"
+  integrity sha512-Iqlfy5m6KLjhxiM9owG/aFCMnHa/6hIcuic1MI+W8Ed6UFKtlsNn7y6IeHwFI+QpWCEfoShtv8PNUs8ihWi+UA==
   dependencies:
     "@actions/core" "^1.2.3"
     "@actions/github" "^2.1.1"
@@ -847,10 +847,10 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.4.tgz#38fd73ddfd9b55abb1e1b2ed578cb55bd7b7d339"
   integrity sha512-8+KAKzEvSUdeo+kmqnKrqgeE+LcA0tjYWFY7RPProVYwnqDjukzO+3b6dLD56rYX5TdWejnEOLJYOIeh4CXKuA==
 
-"@types/node@*", "@types/node@>= 8", "@types/node@^13.11.0":
-  version "13.11.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.11.0.tgz#390ea202539c61c8fa6ba4428b57e05bc36dc47b"
-  integrity sha512-uM4mnmsIIPK/yeO+42F2RQhGUIs39K2RFmugcJANppXe6J1nvH87PvzPZYpza7Xhhs8Yn9yIAVdLZ84z61+0xQ==
+"@types/node@*", "@types/node@>= 8", "@types/node@^13.11.1":
+  version "13.11.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.11.1.tgz#49a2a83df9d26daacead30d0ccc8762b128d53c7"
+  integrity sha512-eWQGP3qtxwL8FGneRrC5DwrJLGN4/dH1clNTuLfN81HCrxVtxRjygDTUoZJ5ASlDEeo0ppYFQjQIlXhtXpOn6g==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -1497,6 +1497,14 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chalk@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
+  integrity sha512-N9oWFcegS0sFr9oh1oz2d7Npos6vNoWW9HvtCg5N1KRFpUhaAhvTv5Y58g880fZaEYSNm3qDz8SU1UrGvp+n7A==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 chalk@~0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-0.5.1.tgz#663b3a648b68b55d04690d49167aa837858f2174"
@@ -1662,7 +1670,7 @@ compare-func@^1.3.1:
     array-ify "^1.0.0"
     dot-prop "^3.0.0"
 
-compare-versions@^3.5.1:
+compare-versions@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.6.0.tgz#1a5689913685e5a87637b8d3ffca75514ec41d62"
   integrity sha512-W6Af2Iw1z4CB7q4uU4hv646dW9GQuBM+YpC0UvUCWSD8w90SJjp+ujJuXaEMtAXBtSqGfMPuFOVn4/+FlaqfBA==
@@ -2650,14 +2658,14 @@ humanize-duration@^3.9.1:
   resolved "https://registry.yarnpkg.com/humanize-duration/-/humanize-duration-3.22.0.tgz#b0b577e2071f231e69b71bfae25e1bb342ffb915"
   integrity sha512-kq2Ncl1E8I7LJtjWhraQS8/LCsdt6fTQ+fwrGJ8dLSNFITW5YQpGWAgPgzjfIErAID7QHv0PA+HZBPfAf6f7IA==
 
-husky@^4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-4.2.3.tgz#3b18d2ee5febe99e27f2983500202daffbc3151e"
-  integrity sha512-VxTsSTRwYveKXN4SaH1/FefRJYCtx+wx04sSVcOpD7N2zjoHxa+cEJ07Qg5NmV3HAK+IRKOyNVpi2YBIVccIfQ==
+husky@^4.2.5:
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-4.2.5.tgz#2b4f7622673a71579f901d9885ed448394b5fa36"
+  integrity sha512-SYZ95AjKcX7goYVZtVZF2i6XiZcHknw50iXvY7b0MiGoj5RwdgRQNEHdb+gPDPCXKlzwrybjFjkL6FOj8uRhZQ==
   dependencies:
-    chalk "^3.0.0"
+    chalk "^4.0.0"
     ci-info "^2.0.0"
-    compare-versions "^3.5.1"
+    compare-versions "^3.6.0"
     cosmiconfig "^6.0.0"
     find-versions "^3.2.0"
     opencollective-postinstall "^2.0.2"
@@ -3596,10 +3604,10 @@ link-types@^1.1.0:
   resolved "https://registry.yarnpkg.com/link-types/-/link-types-1.1.0.tgz#af65e59db52e70c1ffb18ac4c3cb056bfe796830"
   integrity sha1-r2XlnbUucMH/sYrEw8sFa/55aDA=
 
-lint-staged@^10.1.2:
-  version "10.1.2"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.1.2.tgz#beaefc58037ea9e02fe7639cb323d584312a7957"
-  integrity sha512-Vtbe8rhWbJxPNlnXk6jczRh6wvAVjGg+VhELAIjLakOjTACdB4qJOD4W2R8oUXLRCqL1t9WMUsXbSlVK34A8Lg==
+lint-staged@^10.1.3:
+  version "10.1.3"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.1.3.tgz#da27713d3ac519da305381b4de87d5f866b1d2f1"
+  integrity sha512-o2OkLxgVns5RwSC5QF7waeAjJA5nz5gnUfqL311LkZcFipKV7TztrSlhNUK5nQX9H0E5NELAdduMQ+M/JPT7RQ==
   dependencies:
     chalk "^3.0.0"
     commander "^4.0.1"
