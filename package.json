@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/broken-link-checker-action",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "GitHub Actions to check broken links and create issues.",
   "author": {
     "name": "Technote",
