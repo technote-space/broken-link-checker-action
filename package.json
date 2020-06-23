@@ -27,7 +27,6 @@
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/github": "^3.0.0",
-    "@octokit/rest": "^18.0.0",
     "@technote-space/github-action-helper": "^2.0.10",
     "broken-link-checker": "^0.7.8",
     "install": "^0.13.0",
