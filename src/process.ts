@@ -1,5 +1,5 @@
 import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@octokit/rest';
+import {Octokit} from '@technote-space/github-action-helper/dist/types';
 import {Logger, Utils} from '@technote-space/github-action-helper';
 import {checkLinks} from './utils/check';
 import {closeIssue, createIssue, getIssues} from './utils/issue';
