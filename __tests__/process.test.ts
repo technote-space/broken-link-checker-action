@@ -103,7 +103,7 @@ jest.mock('../src/utils/checker', () => {
   });
 });
 
-const rootDir = resolve(__dirname, '..');
+const rootDir     = resolve(__dirname, '..');
 const fixturesDir = resolve(__dirname, 'fixtures');
 
 beforeEach(() => {
@@ -116,7 +116,7 @@ describe('execute', () => {
 
   it('should run', async() => {
     process.env.INPUT_GITHUB_TOKEN = 'token';
-    process.env.INPUT_TARGET = 'https://example.com/test';
+    process.env.INPUT_TARGET       = 'https://example.com/test';
 
     const mockStdout = spyOnStdout();
 
@@ -137,6 +137,9 @@ describe('execute', () => {
       '"https://example.com/test"',
       '> options:',
       getLogStdout({
+        'excludedKeywords': [
+          'camo.githubusercontent.com',
+        ],
         'rateLimit': 1000,
       }),
       '=========================',

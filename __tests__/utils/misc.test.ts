@@ -9,7 +9,7 @@ import {
   getIssueTitle,
   getIssueBody,
   getHtmlCheckerOptions,
-  filterInput
+  filterInput,
 } from '../../src/utils/misc';
 
 const rootDir = resolve(__dirname, '../..');
@@ -75,10 +75,10 @@ describe('getIssueTitle', () => {
 
   it('should title', async() => {
     process.env.INPUT_TARGET = 'http://example.com/test';
-    process.env.INPUT_TITLE = '${URL}::${REDIRECTED_URL}::${REASON}::${TARGET}::${OWNER}::${REPO}';
+    process.env.INPUT_TITLE  = '${URL}::${REDIRECTED_URL}::${REASON}::${TARGET}::${OWNER}::${REPO}';
     expect(await getIssueTitle('http://test', generateContext({
       owner: 'hello',
-      repo: 'world'
+      repo: 'world',
     }))).toBe('http://test::::::http://example.com/test::hello::world');
   });
 });
@@ -88,7 +88,7 @@ describe('getIssueBody', () => {
 
   it('should body', async() => {
     process.env.INPUT_TARGET = 'http://example.com/test';
-    process.env.INPUT_TITLE = '${URL}::${REDIRECTED_URL}::${REASON}::${TARGET}::${OWNER}::${REPO}';
+    process.env.INPUT_TITLE  = '${URL}::${REDIRECTED_URL}::${REASON}::${TARGET}::${OWNER}::${REPO}';
     expect(await getIssueBody({
       originalURL: 'http://original',
       redirectedURL: 'http://redirected',
@@ -111,11 +111,14 @@ describe('getHtmlCheckerOptions', () => {
   it('should return options', () => {
     process.env.INPUT_EXCLUDE_EXTERNAL_LINKS = 'true';
     process.env.INPUT_EXCLUDE_INTERNAL_LINKS = 'false';
-    process.env.INPUT_ACCEPTED_SCHEMES = 'test1, test2';
+    process.env.INPUT_ACCEPTED_SCHEMES       = 'test1, test2';
     expect(getHtmlCheckerOptions()).toEqual({
       'acceptedSchemes': ['test1', 'test2'],
       'excludeExternalLinks': true,
       'excludeInternalLinks': false,
+      'excludedKeywords': [
+        'camo.githubusercontent.com',
+      ],
       'rateLimit': 1000,
     });
   });
