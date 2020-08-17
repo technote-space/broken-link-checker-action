@@ -46,6 +46,7 @@ inputs:
   EXCLUDED_KEYWORDS:
     description: Excluded keyhwords
     required: false
+    default: camo.githubusercontent.com
   EXCLUDED_SCHEMES:
     description: Excluded schemes
     required: false
