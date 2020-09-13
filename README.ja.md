@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Broken Link Check
-        uses: technote-space/broken-link-checker-action@v1
+        uses: technote-space/broken-link-checker-action@v2
 ```
 
 ## スクリーンショット
