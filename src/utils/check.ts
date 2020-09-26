@@ -1,5 +1,5 @@
 import blc from 'broken-link-checker';
-import {Logger} from '@technote-space/github-action-helper';
+import {Logger} from '@technote-space/github-action-log-helper';
 import Checker from './checker';
 import {HtmlCheckerOptions, BrokenLink} from '../types';
 
