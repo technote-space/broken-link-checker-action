@@ -27,6 +27,9 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
+    "@octokit/plugin-paginate-rest": "^2.4.0",
+    "@octokit/plugin-rest-endpoint-methods": "^4.2.0",
+    "@octokit/types": "^5.5.0",
     "@technote-space/github-action-helper": "^4.0.2",
     "@technote-space/github-action-log-helper": "^0.1.1",
     "broken-link-checker": "^0.7.8",
