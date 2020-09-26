@@ -1,6 +1,7 @@
 import {Context} from '@actions/github/lib/context';
 import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {Logger, Utils} from '@technote-space/github-action-helper';
+import {Utils} from '@technote-space/github-action-helper';
+import {Logger} from '@technote-space/github-action-log-helper';
 import {checkLinks} from './utils/check';
 import {closeIssue, createIssue, getIssues} from './utils/issue';
 import {getTargetLink, getIssueTitle, getHtmlCheckerOptions, isRecursive} from './utils/misc';
@@ -17,7 +18,7 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
   logger.startProcess('Creating...');
   console.log(
     await brokenLinks.reduce(async(prev, link) => {
-      const acc = await prev;
+      const acc   = await prev;
       const title = await getIssueTitle(link.originalURL, context);
       if (issues.find(issue => issue.title === title)) {
         return acc;
@@ -34,8 +35,8 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
   logger.startProcess('Closing...');
   console.log(
     await notBrokenLinks.reduce(async(prev, link) => {
-      const acc = await prev;
-      const title = await getIssueTitle(link, context);
+      const acc     = await prev;
+      const title   = await getIssueTitle(link, context);
       const targets = issues.filter(issue => issue.title === title);
       if (!targets.length) {
         return acc;
