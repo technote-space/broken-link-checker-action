@@ -100,7 +100,7 @@ describe('getIssueBody', () => {
 
 Broken Link Checker found a broken link on http://example.com/test
 
-  Target: \`http://original\`
+  Target: http://original
   > reason
 
   [View Actions Results](https://github.com/hello/world/commit/1234/checks)`);
