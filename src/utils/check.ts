@@ -12,9 +12,9 @@ export const checkLinks = async(url: string, recursive: boolean, options: HtmlCh
   logger.log('=========================');
   logger.log();
 
-  const brokenLinks = Array<BrokenLink>();
+  const brokenLinks    = Array<BrokenLink>();
   const notBrokenLinks = Array<string>();
-  const events = {
+  const events         = {
     junk: (result: { url; excludedReason }): void => {
       logger.info('skipped: %s', result.url.original);
       logger.info(blc[result.excludedReason]);
@@ -28,7 +28,7 @@ export const checkLinks = async(url: string, recursive: boolean, options: HtmlCh
         brokenLinks.push({
           originalURL: result.url.original,
           redirectedURL: result.url.redirected,
-          brokenReason: result.brokenReason
+          brokenReason: result.brokenReason,
         });
       } else if (result.excluded) {
         logger.info('excluded: %s', result.url.original);
