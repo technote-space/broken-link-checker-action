@@ -75,6 +75,9 @@ inputs:
     description: Rate limit
     required: false
     default: '1000'
+  INTERVAL:
+    description: Interval
+    required: false
 
 branding:
   icon: 'link'
