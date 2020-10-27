@@ -2,6 +2,7 @@ import {getInput} from '@actions/core';
 import {Context} from '@actions/github/lib/context';
 import {Utils} from '@technote-space/github-action-helper';
 import {BrokenLink, HtmlCheckerOptions} from '../types';
+import {INTERVAL_MS} from '../constant';
 
 export const getTargetLink       = (): string => getInput('TARGET', {required: true});
 export const getReplaceVariables = (context: Context, brokenLink: BrokenLink | string): Array<{ key: string; replace: string }> => [
@@ -22,6 +23,18 @@ export const getIssueBody        = (brokenLink: BrokenLink, context: Context): P
 export const getIssueLabels      = (): Array<string> => Utils.getArrayInput('LABELS');
 export const getIssueAssignees   = (): Array<string> => Utils.getArrayInput('ASSIGNEES');
 export const isRecursive         = (): boolean => Utils.getBoolValue(getInput('RECURSIVE'));
+export const getInterval         = (): number => {
+  const value = getInput('INTERVAL');
+  if (value && value.match(/^\d+$/)) {
+    const interval = Number(value);
+    // eslint-disable-next-line no-magic-numbers
+    if (interval > 0) {
+      return interval;
+    }
+  }
+
+  return INTERVAL_MS;
+};
 
 export const filterInput    = <T>(name: string, getValue: () => T): T | undefined => {
   const key = `INPUT_${name.replace(/ /g, '_').toUpperCase()}`;
