@@ -2,8 +2,9 @@ import {getInput} from '@actions/core';
 import {Context} from '@actions/github/lib/context';
 import {Utils} from '@technote-space/github-action-helper';
 import {BrokenLink, HtmlCheckerOptions} from '../types';
+import {INTERVAL_MS} from '../constant';
 
-export const getTargetLink = (): string => getInput('TARGET', {required: true});
+export const getTargetLink       = (): string => getInput('TARGET', {required: true});
 export const getReplaceVariables = (context: Context, brokenLink: BrokenLink | string): Array<{ key: string; replace: string }> => [
   {key: 'URL', replace: typeof brokenLink === 'string' ? brokenLink : brokenLink.originalURL},
   {key: 'REDIRECTED_URL', replace: typeof brokenLink === 'string' ? '' : brokenLink.redirectedURL},
@@ -17,13 +18,25 @@ export const getReplaceVariables = (context: Context, brokenLink: BrokenLink | s
   {key: 'ACTION', replace: context.action},
   {key: 'ACTOR', replace: context.actor},
 ];
-export const getIssueTitle = (link: string, context: Context): Promise<string> => Utils.replaceVariables(getInput('TITLE', {required: true}), getReplaceVariables(context, link));
-export const getIssueBody = (brokenLink: BrokenLink, context: Context): Promise<string> => Utils.replaceVariables(getInput('BODY', {required: true}), getReplaceVariables(context, brokenLink));
-export const getIssueLabels = (): Array<string> => Utils.getArrayInput('LABELS');
-export const getIssueAssignees = (): Array<string> => Utils.getArrayInput('ASSIGNEES');
-export const isRecursive = (): boolean => Utils.getBoolValue(getInput('RECURSIVE'));
+export const getIssueTitle       = (link: string, context: Context): Promise<string> => Utils.replaceVariables(getInput('TITLE', {required: true}), getReplaceVariables(context, link));
+export const getIssueBody        = (brokenLink: BrokenLink, context: Context): Promise<string> => Utils.replaceVariables(getInput('BODY', {required: true}), getReplaceVariables(context, brokenLink));
+export const getIssueLabels      = (): Array<string> => Utils.getArrayInput('LABELS');
+export const getIssueAssignees   = (): Array<string> => Utils.getArrayInput('ASSIGNEES');
+export const isRecursive         = (): boolean => Utils.getBoolValue(getInput('RECURSIVE'));
+export const getInterval         = (): number => {
+  const value = getInput('INTERVAL');
+  if (value && value.match(/^\d+$/)) {
+    const interval = Number(value);
+    // eslint-disable-next-line no-magic-numbers
+    if (interval > 0) {
+      return interval;
+    }
+  }
 
-export const filterInput = <T>(name: string, getValue: () => T): T | undefined => {
+  return INTERVAL_MS;
+};
+
+export const filterInput    = <T>(name: string, getValue: () => T): T | undefined => {
   const key = `INPUT_${name.replace(/ /g, '_').toUpperCase()}`;
   if (!(key in process.env)) {
     return undefined;
@@ -33,9 +46,9 @@ export const filterInput = <T>(name: string, getValue: () => T): T | undefined =
   }
   return getValue();
 };
-export const getArrayValue = (name: string): Array<string> | undefined => filterInput(name, () => Utils.getArrayInput(name));
+export const getArrayValue  = (name: string): Array<string> | undefined => filterInput(name, () => Utils.getArrayInput(name));
 export const getNumberValue = (name: string): number | undefined => filterInput(name, () => /^\d+$/.test(getInput(name)) ? Number(getInput(name)) : undefined);
-export const getBoolValue = (name: string): boolean | undefined => filterInput(name, () => Utils.getBoolValue(getInput(name)));
+export const getBoolValue   = (name: string): boolean | undefined => filterInput(name, () => Utils.getBoolValue(getInput(name)));
 export const getStringValue = (name: string): string | undefined => filterInput(name, () => getInput(name));
 
 export const getHtmlCheckerOptions = (): HtmlCheckerOptions => {

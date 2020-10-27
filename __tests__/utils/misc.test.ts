@@ -10,7 +10,9 @@ import {
   getIssueBody,
   getHtmlCheckerOptions,
   filterInput,
+  getInterval,
 } from '../../src/utils/misc';
+import {INTERVAL_MS} from '../../src/constant';
 
 const rootDir = resolve(__dirname, '../..');
 
@@ -98,7 +100,7 @@ describe('getIssueBody', () => {
 
 Broken Link Checker found a broken link on http://example.com/test
 
-  Target: \`http://original\`
+  Target: http://original
   > reason
 
   [View Actions Results](https://github.com/hello/world/commit/1234/checks)`);
@@ -137,5 +139,28 @@ describe('filterInput', () => {
   it('should filter input 3', () => {
     process.env.INPUT_TEST = '123';
     expect(filterInput('test', () => '123')).toBe('123');
+  });
+});
+
+describe('getInterval', () => {
+  testEnv(rootDir);
+
+  it('should return default 1', () => {
+    expect(getInterval()).toBe(INTERVAL_MS);
+  });
+
+  it('should return default 2', () => {
+    process.env.INPUT_INTERVAL = 'abc';
+    expect(getInterval()).toBe(INTERVAL_MS);
+  });
+
+  it('should return default 3', () => {
+    process.env.INPUT_INTERVAL = '0';
+    expect(getInterval()).toBe(INTERVAL_MS);
+  });
+
+  it('should return interval', () => {
+    process.env.INPUT_INTERVAL = '123';
+    expect(getInterval()).toBe(123);
   });
 });
