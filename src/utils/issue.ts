@@ -2,15 +2,15 @@ import {Context} from '@actions/github/lib/context';
 import {Octokit} from '@technote-space/github-action-helper/dist/types';
 import {PaginateInterface} from '@octokit/plugin-paginate-rest';
 import {RestEndpointMethods} from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/method-types';
-import {
-  IssuesListForRepoResponseData,
-  IssuesCreateResponseData,
-  IssuesUpdateResponseData,
-} from '@octokit/types';
+import {components} from '@octokit/openapi-types';
 import {getIssueTitle, getIssueBody, getIssueLabels, getIssueAssignees} from './misc';
 import {BrokenLink} from '../types';
 
-export const getIssues = async(octokit: Octokit, context: Context): Promise<IssuesListForRepoResponseData> => (await (octokit.paginate as PaginateInterface)(
+type IssuesListForRepoResponseData = components['schemas']['issue-simple'];
+type IssuesCreateResponseData = components['schemas']['issue'];
+type IssuesUpdateResponseData = components['schemas']['issue'];
+
+export const getIssues = async(octokit: Octokit, context: Context): Promise<Array<IssuesListForRepoResponseData>> => (await (octokit.paginate as PaginateInterface)(
   (octokit as RestEndpointMethods).issues.listForRepo,
   {
     ...context.repo,
