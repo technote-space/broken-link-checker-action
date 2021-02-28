@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/broken-link-checker-action",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "GitHub Actions to check broken links and create issues.",
   "keywords": [
     "github",
