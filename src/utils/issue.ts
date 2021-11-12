@@ -5,7 +5,7 @@ import {components} from '@octokit/openapi-types';
 import {getIssueTitle, getIssueBody, getIssueLabels, getIssueAssignees} from './misc';
 import {BrokenLink} from '../types';
 
-type IssuesListForRepoResponseData = components['schemas']['issue-simple'];
+type IssuesListForRepoResponseData = components['schemas']['issue'];
 type IssuesCreateResponseData = components['schemas']['issue'];
 type IssuesUpdateResponseData = components['schemas']['issue'];
 
