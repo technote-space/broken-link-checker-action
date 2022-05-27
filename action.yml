@@ -8,21 +8,21 @@ inputs:
   GITHUB_TOKEN:
     description: Secret GitHub API token to use for making API requests.
     default: ${{ github.token }}
-    required: true
+    required: false
   TARGET:
     description: Target link
     default: https://github.com/${{ github.repository }}
-    required: true
+    required: false
   RECURSIVE:
     description: Recursive?
     required: false
   TITLE:
     description: Issue title
-    required: true
+    required: false
     default: Broken link found (${URL})
   BODY:
     description: Issue body
-    required: true
+    required: false
     default: |
       ## Broken link found
 
