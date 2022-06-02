@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Logger } from '@technote-space/github-action-log-helper';
 import { spyOnStdout, stdoutCalledWith } from '@technote-space/github-action-test-helper';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { checkLinks } from '../../src/utils/check';
 
 vi.mock('../../src/utils/checker', () => ({

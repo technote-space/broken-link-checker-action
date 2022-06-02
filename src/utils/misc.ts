@@ -1,7 +1,7 @@
-import { getInput } from '@actions/core';
-import type { Context } from '@actions/github/lib/context';
-import { Utils } from '@technote-space/github-action-helper';
 import type { BrokenLink, HtmlCheckerOptions } from '../types';
+import type { Context } from '@actions/github/lib/context';
+import { getInput } from '@actions/core';
+import { Utils } from '@technote-space/github-action-helper';
 import { INTERVAL_MS } from '../constant';
 
 export const getTargetLink       = (): string => getInput('TARGET', { required: true });

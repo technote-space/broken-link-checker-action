@@ -1,7 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { beforeEach, describe, it, vi } from 'vitest';
 import { resolve } from 'path';
-import nock from 'nock';
 import { Logger } from '@technote-space/github-action-log-helper';
 import {
   testEnv,
@@ -13,6 +11,8 @@ import {
   getApiFixture,
   getLogStdout,
 } from '@technote-space/github-action-test-helper';
+import nock from 'nock';
+import { beforeEach, describe, it, vi } from 'vitest';
 import { execute } from '../src/process';
 
 vi.mock('../src/utils/checker', () => ({

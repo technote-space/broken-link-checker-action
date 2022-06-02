@@ -1,5 +1,5 @@
-import { SiteChecker, HtmlUrlChecker } from 'broken-link-checker';
 import type { HtmlCheckerOptions } from '../types';
+import { SiteChecker, HtmlUrlChecker } from 'broken-link-checker';
 
 /**
  * Checker

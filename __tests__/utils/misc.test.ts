@@ -1,7 +1,8 @@
 /* eslint-disable no-magic-numbers */
-import { describe, expect, it } from 'vitest';
 import { resolve } from 'path';
 import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
+import { describe, expect, it } from 'vitest';
+import { INTERVAL_MS } from '../../src/constant';
 import {
   getArrayValue,
   getNumberValue,
@@ -13,7 +14,6 @@ import {
   filterInput,
   getInterval,
 } from '../../src/utils/misc';
-import { INTERVAL_MS } from '../../src/constant';
 
 const rootDir = resolve(__dirname, '../..');
 

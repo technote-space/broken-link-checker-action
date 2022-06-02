@@ -1,7 +1,7 @@
 import type { Context } from '@actions/github/lib/context';
 import type { Octokit } from '@technote-space/github-action-helper/dist/types';
-import { Utils } from '@technote-space/github-action-helper';
 import type { Logger } from '@technote-space/github-action-log-helper';
+import { Utils } from '@technote-space/github-action-helper';
 import { checkLinks } from './utils/check';
 import { closeIssue, createIssue, getIssues } from './utils/issue';
 import { getTargetLink, getIssueTitle, getHtmlCheckerOptions, isRecursive, getInterval } from './utils/misc';
