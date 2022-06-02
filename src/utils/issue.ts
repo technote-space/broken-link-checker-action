@@ -1,9 +1,9 @@
-import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {PaginateInterface} from '@octokit/plugin-paginate-rest';
-import {components} from '@octokit/openapi-types';
-import {getIssueTitle, getIssueBody, getIssueLabels, getIssueAssignees} from './misc';
-import {BrokenLink} from '../types';
+import { Context } from '@actions/github/lib/context';
+import { Octokit } from '@technote-space/github-action-helper/dist/types';
+import { PaginateInterface } from '@octokit/plugin-paginate-rest';
+import { components } from '@octokit/openapi-types';
+import { getIssueTitle, getIssueBody, getIssueLabels, getIssueAssignees } from './misc';
+import { BrokenLink } from '../types';
 
 type IssuesListForRepoResponseData = components['schemas']['issue'];
 type IssuesCreateResponseData = components['schemas']['issue'];

@@ -1,14 +1,14 @@
-import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {Utils} from '@technote-space/github-action-helper';
-import {Logger} from '@technote-space/github-action-log-helper';
-import {checkLinks} from './utils/check';
-import {closeIssue, createIssue, getIssues} from './utils/issue';
-import {getTargetLink, getIssueTitle, getHtmlCheckerOptions, isRecursive, getInterval} from './utils/misc';
+import { Context } from '@actions/github/lib/context';
+import { Octokit } from '@technote-space/github-action-helper/dist/types';
+import { Utils } from '@technote-space/github-action-helper';
+import { Logger } from '@technote-space/github-action-log-helper';
+import { checkLinks } from './utils/check';
+import { closeIssue, createIssue, getIssues } from './utils/issue';
+import { getTargetLink, getIssueTitle, getHtmlCheckerOptions, isRecursive, getInterval } from './utils/misc';
 
 export const execute = async(logger: Logger, octokit: Octokit, context: Context): Promise<void> => {
   logger.startProcess('Checking...');
-  const {brokenLinks, notBrokenLinks} = await checkLinks(getTargetLink(), isRecursive(), getHtmlCheckerOptions(), logger);
+  const { brokenLinks, notBrokenLinks } = await checkLinks(getTargetLink(), isRecursive(), getHtmlCheckerOptions(), logger);
 
   logger.startProcess('Get issues...');
   const issues = await getIssues(octokit, context);

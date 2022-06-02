@@ -1,7 +1,8 @@
 /* eslint-disable no-magic-numbers */
-import {resolve} from 'path';
+import { beforeEach, describe, it, vi } from 'vitest';
+import { resolve } from 'path';
 import nock from 'nock';
-import {Logger} from '@technote-space/github-action-log-helper';
+import { Logger } from '@technote-space/github-action-log-helper';
 import {
   testEnv,
   getOctokit,
@@ -12,96 +13,94 @@ import {
   getApiFixture,
   getLogStdout,
 } from '@technote-space/github-action-test-helper';
-import {execute} from '../src/process';
+import { execute } from '../src/process';
 
-jest.mock('../src/utils/checker', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      start: (url, options, events): void => {
-        events.link({
-          broken: false,
-          excluded: true,
-          brokenReason: undefined,
-          url: {
-            original: 'http://example.com/excluded1',
-            redirected: 'http://example.com/excluded1',
-          },
-        });
-        events.junk({
-          excludedReason: 'BLC_ROBOTS',
-          excluded: true,
-          url: {
-            original: 'http://example.com/excluded2',
-            redirected: 'http://example.com/excluded2',
-          },
-        });
-        events.link({
-          broken: true,
-          excluded: false,
-          brokenReason: 'BLC_INTERNAL',
-          url: {
-            original: 'http://example.com/404',
-            redirected: 'http://example.com/404',
-          },
-        });
-        events.link({
-          broken: false,
-          excluded: false,
-          brokenReason: undefined,
-          url: {
-            original: 'http://example.com/ok1',
-            redirected: 'http://example.com/redirect',
-          },
-        });
-        events.junk({
-          excludedReason: 'BLC_SAMEPAGE',
-          excluded: true,
-          url: {
-            original: 'http://example.com/excluded3',
-            redirected: 'http://example.com/excluded3',
-          },
-        });
-        events.link({
-          broken: true,
-          excluded: false,
-          brokenReason: 'BLC_HTML',
-          url: {
-            original: 'http://example.com/400',
-            redirected: 'http://example.com/400',
-          },
-        });
-        events.link({
-          broken: false,
-          excluded: false,
-          brokenReason: undefined,
-          url: {
-            original: 'http://example.com/ok2',
-            redirected: 'http://example.com/ok2',
-          },
-        });
-        events.link({
-          broken: true,
-          excluded: false,
-          brokenReason: 'BLC_INVALID',
-          url: {
-            original: 'http://example.com/500',
-            redirected: 'http://example.com/500',
-          },
-        });
-        events.link({
-          broken: false,
-          excluded: false,
-          brokenReason: undefined,
-          url: {
-            original: 'http://example.com/ok3',
-            redirected: 'http://example.com/ok3',
-          },
-        });
-        events.end();
-      },
-    };
-  });
-});
+vi.mock('../src/utils/checker', () => ({
+  default: class {
+    start(url, options, events): void {
+      events.link({
+        broken: false,
+        excluded: true,
+        brokenReason: undefined,
+        url: {
+          original: 'http://example.com/excluded1',
+          redirected: 'http://example.com/excluded1',
+        },
+      });
+      events.junk({
+        excludedReason: 'BLC_ROBOTS',
+        excluded: true,
+        url: {
+          original: 'http://example.com/excluded2',
+          redirected: 'http://example.com/excluded2',
+        },
+      });
+      events.link({
+        broken: true,
+        excluded: false,
+        brokenReason: 'BLC_INTERNAL',
+        url: {
+          original: 'http://example.com/404',
+          redirected: 'http://example.com/404',
+        },
+      });
+      events.link({
+        broken: false,
+        excluded: false,
+        brokenReason: undefined,
+        url: {
+          original: 'http://example.com/ok1',
+          redirected: 'http://example.com/redirect',
+        },
+      });
+      events.junk({
+        excludedReason: 'BLC_SAMEPAGE',
+        excluded: true,
+        url: {
+          original: 'http://example.com/excluded3',
+          redirected: 'http://example.com/excluded3',
+        },
+      });
+      events.link({
+        broken: true,
+        excluded: false,
+        brokenReason: 'BLC_HTML',
+        url: {
+          original: 'http://example.com/400',
+          redirected: 'http://example.com/400',
+        },
+      });
+      events.link({
+        broken: false,
+        excluded: false,
+        brokenReason: undefined,
+        url: {
+          original: 'http://example.com/ok2',
+          redirected: 'http://example.com/ok2',
+        },
+      });
+      events.link({
+        broken: true,
+        excluded: false,
+        brokenReason: 'BLC_INVALID',
+        url: {
+          original: 'http://example.com/500',
+          redirected: 'http://example.com/500',
+        },
+      });
+      events.link({
+        broken: false,
+        excluded: false,
+        brokenReason: undefined,
+        url: {
+          original: 'http://example.com/ok3',
+          redirected: 'http://example.com/ok3',
+        },
+      });
+      events.end();
+    }
+  },
+}));
 
 const rootDir     = resolve(__dirname, '..');
 const fixturesDir = resolve(__dirname, 'fixtures');
@@ -129,7 +128,7 @@ describe('execute', () => {
       .patch('/repos/hello/world/issues/1347')
       .reply(200);
 
-    await execute(new Logger(), getOctokit(), generateContext({owner: 'hello', repo: 'world', sha: '1234'}));
+    await execute(new Logger(), getOctokit(), generateContext({ owner: 'hello', repo: 'world', sha: '1234' }));
 
     stdoutCalledWith(mockStdout, [
       '::group::Checking...',

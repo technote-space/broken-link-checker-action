@@ -1,6 +1,7 @@
 /* eslint-disable no-magic-numbers */
-import {resolve} from 'path';
-import {generateContext, testEnv} from '@technote-space/github-action-test-helper';
+import { describe, expect, it } from 'vitest';
+import { resolve } from 'path';
+import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
 import {
   getArrayValue,
   getNumberValue,
@@ -12,7 +13,7 @@ import {
   filterInput,
   getInterval,
 } from '../../src/utils/misc';
-import {INTERVAL_MS} from '../../src/constant';
+import { INTERVAL_MS } from '../../src/constant';
 
 const rootDir = resolve(__dirname, '../..');
 
@@ -95,7 +96,7 @@ describe('getIssueBody', () => {
       originalURL: 'http://original',
       redirectedURL: 'http://redirected',
       brokenReason: 'reason',
-    }, generateContext({owner: 'hello', repo: 'world', sha: '1234'}))).toBe(`\
+    }, generateContext({ owner: 'hello', repo: 'world', sha: '1234' }))).toBe(`\
 ## Broken link found
 
 Broken Link Checker found a broken link on http://example.com/test

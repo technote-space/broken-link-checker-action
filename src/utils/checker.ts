@@ -1,5 +1,5 @@
-import blc from 'broken-link-checker';
-import {HtmlCheckerOptions} from '../types';
+import { SiteChecker, HtmlUrlChecker } from 'broken-link-checker';
+import { HtmlCheckerOptions } from '../types';
 
 /**
  * Checker
@@ -11,7 +11,7 @@ export default class Checker {
    * @param {boolean} recursive recursive
    */
   constructor(recursive: boolean) {
-    this.checkerClass = recursive ? blc.SiteChecker : blc.HtmlUrlChecker;
+    this.checkerClass = recursive ? SiteChecker : HtmlUrlChecker;
   }
 
   /**
