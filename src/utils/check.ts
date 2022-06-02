@@ -1,7 +1,7 @@
 import blc from 'broken-link-checker';
-import { Logger } from '@technote-space/github-action-log-helper';
+import type { Logger } from '@technote-space/github-action-log-helper';
 import Checker from './checker';
-import { HtmlCheckerOptions, BrokenLink } from '../types';
+import type { HtmlCheckerOptions, BrokenLink } from '../types';
 
 export const checkLinks = async(url: string, recursive: boolean, options: HtmlCheckerOptions, logger: Logger): Promise<{ brokenLinks: Array<BrokenLink>; notBrokenLinks: Array<string> }> => new Promise(resolve => {
   logger.log('=========================');
