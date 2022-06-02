@@ -17,7 +17,7 @@ import { execute } from './process';
 
 vi.mock('../src/utils/checker', () => ({
   default: class {
-    start(url, options, events): void {
+    start(_url, _options, events): void {
       events.link({
         broken: false,
         excluded: true,
