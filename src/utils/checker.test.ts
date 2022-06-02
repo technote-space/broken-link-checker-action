@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import Checker from '../../src/utils/checker';
+import Checker from './checker';
 
 vi.mock('broken-link-checker', () => ({
   SiteChecker: class {

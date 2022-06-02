@@ -9,7 +9,7 @@ import {
 } from '@technote-space/github-action-test-helper';
 import nock from 'nock';
 import { describe, expect, it, vi } from 'vitest';
-import { getIssues, createIssue, closeIssue } from '../../src/utils/issue';
+import { getIssues, createIssue, closeIssue } from './issue';
 
 const rootDir     = resolve(__dirname, '../..');
 const fixturesDir = resolve(__dirname, '..', 'fixtures');

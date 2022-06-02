@@ -13,7 +13,7 @@ import {
 } from '@technote-space/github-action-test-helper';
 import nock from 'nock';
 import { beforeEach, describe, it, vi } from 'vitest';
-import { execute } from '../src/process';
+import { execute } from './process';
 
 vi.mock('../src/utils/checker', () => ({
   default: class {

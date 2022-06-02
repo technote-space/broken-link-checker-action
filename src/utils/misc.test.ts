@@ -2,7 +2,7 @@
 import { resolve } from 'path';
 import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
 import { describe, expect, it } from 'vitest';
-import { INTERVAL_MS } from '../../src/constant';
+import { INTERVAL_MS } from '../constant';
 import {
   getArrayValue,
   getNumberValue,
@@ -13,7 +13,7 @@ import {
   getHtmlCheckerOptions,
   filterInput,
   getInterval,
-} from '../../src/utils/misc';
+} from './misc';
 
 const rootDir = resolve(__dirname, '../..');
 
