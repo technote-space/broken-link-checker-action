@@ -7,7 +7,7 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-リンク切れを検知して Issue を作成する `GitHub Actions` です。
+指定されたURLのページに含まれるリンク切れを検知して Issue を作成する `GitHub Actions` です。
 
 ## Table of Contents
 
