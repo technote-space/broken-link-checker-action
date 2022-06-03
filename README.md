@@ -7,7 +7,7 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-GitHub Actions to check broken links and create issues.
+GitHub Actions that detects broken links in a page with a specified URL and creates issues.
 
 ## Table of Contents
 
