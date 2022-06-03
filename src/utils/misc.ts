@@ -8,7 +8,7 @@ export const getTargetLink       = (): string => getInput('TARGET', { required: 
 export const getReplaceVariables = (context: Context, brokenLink: BrokenLink | string): Array<{ key: string; replace: string }> => [
   { key: 'URL', replace: typeof brokenLink === 'string' ? brokenLink : brokenLink.originalURL },
   { key: 'REDIRECTED_URL', replace: typeof brokenLink === 'string' ? '' : brokenLink.redirectedURL },
-  { key: 'REASON', replace: typeof brokenLink === 'string' ? '' : brokenLink.brokenReason },
+  { key: 'REASON', replace: typeof brokenLink === 'string' ? '' : Object.values(brokenLink.brokenReasons).join(', ') },
   { key: 'TARGET', replace: getTargetLink() },
   { key: 'OWNER', replace: context.repo.owner },
   { key: 'REPO', replace: context.repo.repo },

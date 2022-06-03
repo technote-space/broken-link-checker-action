@@ -95,14 +95,14 @@ describe('getIssueBody', () => {
     expect(await getIssueBody({
       originalURL: 'http://original',
       redirectedURL: 'http://redirected',
-      brokenReason: 'reason',
+      brokenReasons: { reason1: 'reason1', reason2: 'reason2' },
     }, generateContext({ owner: 'hello', repo: 'world', sha: '1234' }))).toBe(`\
 ## Broken link found
 
 Broken Link Checker found a broken link on http://example.com/test
 
   Target: http://original
-  > reason
+  > reason1, reason2
 
   [View Actions Results](https://github.com/hello/world/commit/1234/checks)`);
   });
