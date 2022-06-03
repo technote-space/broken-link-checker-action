@@ -59,6 +59,24 @@ vi.mock('../../src/utils/checker', () => ({
           redirected: 'http://example.com/400',
         },
       });
+      events.link({
+        broken: true,
+        excluded: false,
+        brokenReason: 'BLC_INVALID',
+        url: {
+          original: 'http://example.com/404',
+          redirected: 'http://example.com/404',
+        },
+      });
+      events.link({
+        broken: true,
+        excluded: false,
+        brokenReason: 'BLC_UNKNOWN',
+        url: {
+          original: 'http://example.com/404',
+          redirected: 'http://example.com/404',
+        },
+      });
       events.end();
     }
   },
@@ -97,8 +115,21 @@ describe('checkLinks', () => {
       '::warning::broken: http://example.com/400',
       '> Keyword Exclusion',
       '',
+      '::warning::broken: http://example.com/404',
+      '> Invalid URL',
+      '',
+      '::warning::broken: http://example.com/404',
+      '> Unknown Error',
+      '',
     ]);
-    expect(brokenLinks).toHaveLength(2);
-    expect(notBrokenLinks).toHaveLength(3);
+    expect(brokenLinks).toEqual([
+      { originalURL: 'http://example.com/404', redirectedURL: 'http://example.com/404', brokenReasons: { BLC_INVALID: 'BLC_INVALID', BLC_UNKNOWN: 'BLC_UNKNOWN' } },
+      { originalURL: 'http://example.com/400', redirectedURL: 'http://example.com/400', brokenReasons: { BLC_KEYWORD: 'BLC_KEYWORD' } },
+    ]);
+    expect(notBrokenLinks).toEqual([
+      'http://example.com/skipped1',
+      'http://example.com/ok',
+      'http://example.com/skipped2',
+    ]);
   });
 });

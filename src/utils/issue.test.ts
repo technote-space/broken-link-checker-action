@@ -51,7 +51,7 @@ describe('createIssue', () => {
     await createIssue({
       originalURL: 'test1',
       redirectedURL: 'test2',
-      brokenReason: 'test3',
+      brokenReasons: { test3: 'test3' },
     }, getOctokit(), generateContext({ owner: 'hello', repo: 'world' }));
 
     expect(fn).toBeCalledTimes(1);

@@ -13,5 +13,5 @@ export type HtmlCheckerOptions = Partial<{
 export type BrokenLink = {
   originalURL: string;
   redirectedURL: string;
-  brokenReason: string;
+  brokenReasons: Record<string, string>;
 }
