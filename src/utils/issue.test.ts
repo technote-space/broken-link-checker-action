@@ -1,16 +1,17 @@
 /* eslint-disable no-magic-numbers */
-import {resolve} from 'path';
-import nock from 'nock';
+import { resolve } from 'path';
 import {
   testEnv,
   getOctokit,
   disableNetConnect,
   generateContext,
-  getApiFixture
+  getApiFixture,
 } from '@technote-space/github-action-test-helper';
-import {getIssues, createIssue, closeIssue} from '../../src/utils/issue';
+import nock from 'nock';
+import { describe, expect, it, vi } from 'vitest';
+import { getIssues, createIssue, closeIssue } from './issue';
 
-const rootDir = resolve(__dirname, '../..');
+const rootDir     = resolve(__dirname, '../..');
 const fixturesDir = resolve(__dirname, '..', 'fixtures');
 
 describe('getIssues', () => {
@@ -22,12 +23,12 @@ describe('getIssues', () => {
       .get('/repos/hello/world/issues')
       .reply(200, () => getApiFixture(fixturesDir, 'issues.get'));
 
-    const issues = await getIssues(getOctokit(), generateContext({owner: 'hello', repo: 'world'}));
+    const issues = await getIssues(getOctokit(), generateContext({ owner: 'hello', repo: 'world' }));
 
     expect(issues).toHaveLength(3);
-    expect(issues[0].id).toBe(1);
-    expect(issues[1].id).toBe(3);
-    expect(issues[2].id).toBe(4);
+    expect(issues[0]!.id).toBe(1);
+    expect(issues[1]!.id).toBe(3);
+    expect(issues[2]!.id).toBe(4);
   });
 });
 
@@ -38,7 +39,7 @@ describe('createIssue', () => {
   it('should create issue', async() => {
     process.env.INPUT_TARGET = 'http://example.com/test';
 
-    const fn = jest.fn();
+    const fn = vi.fn();
     nock('https://api.github.com')
       .post('/repos/hello/world/issues', body => {
         fn();
@@ -50,8 +51,8 @@ describe('createIssue', () => {
     await createIssue({
       originalURL: 'test1',
       redirectedURL: 'test2',
-      brokenReason: 'test3',
-    }, getOctokit(), generateContext({owner: 'hello', repo: 'world'}));
+      brokenReasons: { test3: 'test3' },
+    }, getOctokit(), generateContext({ owner: 'hello', repo: 'world' }));
 
     expect(fn).toBeCalledTimes(1);
   });
@@ -62,7 +63,7 @@ describe('closeIssue', () => {
   testEnv(rootDir);
 
   it('should close issue', async() => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     nock('https://api.github.com')
       .patch('/repos/hello/world/issues/123', body => {
         fn();
@@ -70,7 +71,7 @@ describe('closeIssue', () => {
       })
       .reply(200);
 
-    await closeIssue({number: 123}, getOctokit(), generateContext({owner: 'hello', repo: 'world'}));
+    await closeIssue({ number: 123 }, getOctokit(), generateContext({ owner: 'hello', repo: 'world' }));
 
     expect(fn).toBeCalledTimes(1);
   });

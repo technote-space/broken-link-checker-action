@@ -1,7 +1,7 @@
+import type { HtmlCheckerOptions, BrokenLink } from '../types';
+import type { Logger } from '@technote-space/github-action-log-helper';
 import blc from 'broken-link-checker';
-import {Logger} from '@technote-space/github-action-log-helper';
 import Checker from './checker';
-import {HtmlCheckerOptions, BrokenLink} from '../types';
 
 export const checkLinks = async(url: string, recursive: boolean, options: HtmlCheckerOptions, logger: Logger): Promise<{ brokenLinks: Array<BrokenLink>; notBrokenLinks: Array<string> }> => new Promise(resolve => {
   logger.log('=========================');
@@ -12,7 +12,7 @@ export const checkLinks = async(url: string, recursive: boolean, options: HtmlCh
   logger.log('=========================');
   logger.log();
 
-  const brokenLinks    = Array<BrokenLink>();
+  const brokenLinks    = {} as Record<string, BrokenLink>;
   const notBrokenLinks = Array<string>();
   const events         = {
     junk: (result: { url; excludedReason }): void => {
@@ -25,11 +25,15 @@ export const checkLinks = async(url: string, recursive: boolean, options: HtmlCh
       if (result.broken) {
         logger.warn('broken: %s', result.url.original);
         logger.info(blc[result.brokenReason]);
-        brokenLinks.push({
-          originalURL: result.url.original,
-          redirectedURL: result.url.redirected,
-          brokenReason: result.brokenReason,
-        });
+        if (result.url.original in brokenLinks) {
+          brokenLinks[result.url.original]!.brokenReasons[result.brokenReason] = result.brokenReason;
+        } else {
+          brokenLinks[result.url.original] = {
+            originalURL: result.url.original,
+            redirectedURL: result.url.redirected,
+            brokenReasons: { [result.brokenReason]: result.brokenReason },
+          };
+        }
       } else if (result.excluded) {
         logger.info('excluded: %s', result.url.original);
       } else {
@@ -38,7 +42,7 @@ export const checkLinks = async(url: string, recursive: boolean, options: HtmlCh
       }
       logger.log();
     },
-    end: (): void => resolve({brokenLinks, notBrokenLinks}),
+    end: (): void => resolve({ brokenLinks: Object.values(brokenLinks), notBrokenLinks }),
   };
   (new Checker(recursive)).start(url, options, events);
 });

@@ -1,12 +1,17 @@
-import Checker from '../../src/utils/checker';
+import { describe, expect, it, vi } from 'vitest';
+import Checker from './checker';
 
-jest.mock('broken-link-checker', () => ({
-  SiteChecker: jest.fn().mockImplementation(() => ({
-    enqueue: (url: string): void => expect(url).toBe('http://example.com/site-checker-test'),
-  })),
-  HtmlUrlChecker: jest.fn().mockImplementation(() => ({
-    enqueue: (url: string): void => expect(url).toBe('http://example.com/html-url-checker-test'),
-  })),
+vi.mock('broken-link-checker', () => ({
+  SiteChecker: class {
+    enqueue(url: string): void {
+      expect(url).toBe('http://example.com/site-checker-test');
+    }
+  },
+  HtmlUrlChecker: class {
+    enqueue(url: string): void {
+      expect(url).toBe('http://example.com/html-url-checker-test');
+    }
+  },
 }));
 
 describe('Checker', () => {

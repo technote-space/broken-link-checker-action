@@ -1,25 +1,25 @@
-import {getInput} from '@actions/core';
-import {Context} from '@actions/github/lib/context';
-import {Utils} from '@technote-space/github-action-helper';
-import {BrokenLink, HtmlCheckerOptions} from '../types';
-import {INTERVAL_MS} from '../constant';
+import type { BrokenLink, HtmlCheckerOptions } from '../types';
+import type { Context } from '@actions/github/lib/context';
+import { getInput } from '@actions/core';
+import { Utils } from '@technote-space/github-action-helper';
+import { INTERVAL_MS } from '../constant';
 
-export const getTargetLink       = (): string => getInput('TARGET', {required: true});
+export const getTargetLink       = (): string => getInput('TARGET', { required: true });
 export const getReplaceVariables = (context: Context, brokenLink: BrokenLink | string): Array<{ key: string; replace: string }> => [
-  {key: 'URL', replace: typeof brokenLink === 'string' ? brokenLink : brokenLink.originalURL},
-  {key: 'REDIRECTED_URL', replace: typeof brokenLink === 'string' ? '' : brokenLink.redirectedURL},
-  {key: 'REASON', replace: typeof brokenLink === 'string' ? '' : brokenLink.brokenReason},
-  {key: 'TARGET', replace: getTargetLink()},
-  {key: 'OWNER', replace: context.repo.owner},
-  {key: 'REPO', replace: context.repo.repo},
-  {key: 'SHA', replace: context.sha},
-  {key: 'REF', replace: context.ref},
-  {key: 'EVENT_NAME', replace: context.eventName},
-  {key: 'ACTION', replace: context.action},
-  {key: 'ACTOR', replace: context.actor},
+  { key: 'URL', replace: typeof brokenLink === 'string' ? brokenLink : brokenLink.originalURL },
+  { key: 'REDIRECTED_URL', replace: typeof brokenLink === 'string' ? '' : brokenLink.redirectedURL },
+  { key: 'REASON', replace: typeof brokenLink === 'string' ? '' : Object.values(brokenLink.brokenReasons).join(', ') },
+  { key: 'TARGET', replace: getTargetLink() },
+  { key: 'OWNER', replace: context.repo.owner },
+  { key: 'REPO', replace: context.repo.repo },
+  { key: 'SHA', replace: context.sha },
+  { key: 'REF', replace: context.ref },
+  { key: 'EVENT_NAME', replace: context.eventName },
+  { key: 'ACTION', replace: context.action },
+  { key: 'ACTOR', replace: context.actor },
 ];
-export const getIssueTitle       = (link: string, context: Context): Promise<string> => Utils.replaceVariables(getInput('TITLE', {required: true}), getReplaceVariables(context, link));
-export const getIssueBody        = (brokenLink: BrokenLink, context: Context): Promise<string> => Utils.replaceVariables(getInput('BODY', {required: true}), getReplaceVariables(context, brokenLink));
+export const getIssueTitle       = (link: string, context: Context): Promise<string> => Utils.replaceVariables(getInput('TITLE', { required: true }), getReplaceVariables(context, link));
+export const getIssueBody        = (brokenLink: BrokenLink, context: Context): Promise<string> => Utils.replaceVariables(getInput('BODY', { required: true }), getReplaceVariables(context, brokenLink));
 export const getIssueLabels      = (): Array<string> => Utils.getArrayInput('LABELS');
 export const getIssueAssignees   = (): Array<string> => Utils.getArrayInput('ASSIGNEES');
 export const isRecursive         = (): boolean => Utils.getBoolValue(getInput('RECURSIVE'));

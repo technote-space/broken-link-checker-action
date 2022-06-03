@@ -1,6 +1,8 @@
 /* eslint-disable no-magic-numbers */
-import {resolve} from 'path';
-import {generateContext, testEnv} from '@technote-space/github-action-test-helper';
+import { resolve } from 'path';
+import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
+import { describe, expect, it } from 'vitest';
+import { INTERVAL_MS } from '../constant';
 import {
   getArrayValue,
   getNumberValue,
@@ -11,8 +13,7 @@ import {
   getHtmlCheckerOptions,
   filterInput,
   getInterval,
-} from '../../src/utils/misc';
-import {INTERVAL_MS} from '../../src/constant';
+} from './misc';
 
 const rootDir = resolve(__dirname, '../..');
 
@@ -94,14 +95,14 @@ describe('getIssueBody', () => {
     expect(await getIssueBody({
       originalURL: 'http://original',
       redirectedURL: 'http://redirected',
-      brokenReason: 'reason',
-    }, generateContext({owner: 'hello', repo: 'world', sha: '1234'}))).toBe(`\
+      brokenReasons: { reason1: 'reason1', reason2: 'reason2' },
+    }, generateContext({ owner: 'hello', repo: 'world', sha: '1234' }))).toBe(`\
 ## Broken link found
 
 Broken Link Checker found a broken link on http://example.com/test
 
   Target: http://original
-  > reason
+  > reason1, reason2
 
   [View Actions Results](https://github.com/hello/world/commit/1234/checks)`);
   });
