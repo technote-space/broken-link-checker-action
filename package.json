@@ -39,7 +39,7 @@
     "broken-link-checker": "^0.7.8"
   },
   "devDependencies": {
-    "@actions/core": "^1.9.0",
+    "@actions/core": "^1.9.1",
     "@actions/github": "^5.0.3",
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
